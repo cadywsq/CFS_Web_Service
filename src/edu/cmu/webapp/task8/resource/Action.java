@@ -24,6 +24,6 @@ public abstract class Action {
         if (action == null) {
             return null;
         }
-        return action.perform(name);
+        return perform(name);
     }
 }

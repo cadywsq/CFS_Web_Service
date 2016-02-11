@@ -34,7 +34,7 @@ public class CreateCustomerAccountAction extends Action{
     		return messagejson;
     	}
         if (!(session.getAttribute("user") instanceof EmployeeBean)) {
-        	messagejson.add(new MessageJSON("I/'m sorry you are not authorized to perform that action"));
+        	messagejson.add(new MessageJSON("I'm sorry you are not authorized to perform that action"));
         	return messagejson;
         }
         message.addAll(form.getValidationErrors());
