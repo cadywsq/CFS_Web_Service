@@ -11,7 +11,7 @@ public class Menulist {
 
 	public List<Menu> getEmployeeLinkFunctions() {
 		// Setting employee menu
-		listEmployeeLinkFunctions.add(new Menu("createAccount", "Create Account"));
+		listEmployeeLinkFunctions.add(new Menu("createCustomerAccount", "Create Account"));
 		listEmployeeLinkFunctions.add(new Menu("depositCheck", "Deposit Check"));
 		listEmployeeLinkFunctions.add(new Menu("createFund", "Create Fund"));
 		listEmployeeLinkFunctions.add(new Menu("transitionDay", "Transition Day"));
