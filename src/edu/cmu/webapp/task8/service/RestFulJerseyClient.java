@@ -12,7 +12,7 @@ import org.glassfish.jersey.client.ClientConfig;
 
 public class RestFulJerseyClient {
 
-	private static final String webServiceURI = "http://localhost:6000/CFSTeam11";
+	private static final String webServiceURI = "http://localhost:8080/CFSTeam11";
 
 	public static void main(String[] args) {
 		ClientConfig clientConfig = new ClientConfig();
