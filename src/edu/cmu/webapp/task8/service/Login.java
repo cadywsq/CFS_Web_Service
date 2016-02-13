@@ -13,7 +13,7 @@ public class Login {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public LoginJSON login(@Context HttpServletRequest request,@BeanParam LoginBeanParam loginBeanParam) {
-		
+		System.out.println("Check");
 		Controller.databasePrecheck();
 		return new LoginAction(loginBeanParam.getLoginFormBean()).perform(request);
 	}
