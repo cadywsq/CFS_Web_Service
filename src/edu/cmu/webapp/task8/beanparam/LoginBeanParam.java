@@ -1,7 +1,6 @@
 package edu.cmu.webapp.task8.beanparam;
 
 import javax.ws.rs.FormParam;
-import javax.ws.rs.QueryParam;
 
 import edu.cmu.webapp.task8.formbean.LoginFormBean;
 

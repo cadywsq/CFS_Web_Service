@@ -1,12 +1,12 @@
 package edu.cmu.webapp.task8.beanparam;
 
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.FormParam;
 
 import edu.cmu.webapp.task8.formbean.CreateFundFormBean;
 
 public class CreateFundBeanParam {
-	private @QueryParam("fundName") String fundName;
-	private @QueryParam("symbol") String symbol;
+	private @FormParam("fundName") String fundName;
+	private @FormParam("symbol") String symbol;
     private CreateFundFormBean createFundForm;
     
     public CreateFundBeanParam() {
