@@ -1,20 +1,20 @@
 package edu.cmu.webapp.task8.beanparam;
 
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.FormParam;
 
 import edu.cmu.webapp.task8.formbean.CreateCustomerFormBean;
 
 public class CreateCustomerBeanParam {
 	
-    private @QueryParam("firstname") String firstName;
-    private @QueryParam("lastname") String lastName;
-    private @QueryParam("username") String username;
-    private @QueryParam("password") String password;
-    private @QueryParam("addr_line1") String addrLine1;
-    private @QueryParam("addr_line2") String addrLine2;
-    private @QueryParam("city") String city;
-    private @QueryParam("state") String state;
-    private @QueryParam("zip") String zip;
+    private @FormParam("firstname") String firstName;
+    private @FormParam("lastname") String lastName;
+    private @FormParam("username") String username;
+    private @FormParam("password") String password;
+    private @FormParam("addr_line1") String addrLine1;
+    private @FormParam("addr_line2") String addrLine2;
+    private @FormParam("city") String city;
+    private @FormParam("state") String state;
+    private @FormParam("zip") String zip;
     private CreateCustomerFormBean createCustomerFormbean;
     
     public CreateCustomerBeanParam(){

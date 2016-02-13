@@ -65,7 +65,7 @@ public class CreateCustomerFormBean extends MyFormBean {
         String errorAddr1 = checkStringFormat(getAddrLine1());
         String errorAddr2 = checkStringFormat(getAddrLine2());
         String errorCity = checkLetterFormat(getCity());
-        Pattern STATE_FORMAT = Pattern.compile("[A-Z]{2}");
+        String errorState = checkLetterFormat(getState());
 
         if (errorUN != "") errors.add("Username " + errorUN);
         if (errorFN != "") errors.add("First Name " + errorFN);
@@ -74,8 +74,8 @@ public class CreateCustomerFormBean extends MyFormBean {
         if (errorAddr1 != "") errors.add(errorAddr1);
         if (errorAddr2 != "") errors.add(errorAddr2);
         if (errorCity != "") errors.add("City" + errorCity);
-        if (!STATE_FORMAT.matcher(getState()).matches())
-            errors.add("State is required to be two capital letters");
+        if (errorState != "") errors.add("State" + errorState);
+     
         Pattern ZIP_FORMAT = Pattern.compile("^[0-9]{5}");
         if (!ZIP_FORMAT.matcher(getZip()).matches())
             errors.add("Zip code is required to be 5 digits");
