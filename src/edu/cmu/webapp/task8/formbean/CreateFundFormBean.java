@@ -9,6 +9,7 @@ public class CreateFundFormBean extends MyFormBean {
     private String fundName;
     private String symbol;
     private String action;
+    private String initialPrice;
 
     @Override
     public List<String> getValidationErrors() {
@@ -24,16 +25,26 @@ public class CreateFundFormBean extends MyFormBean {
         }
         if (getAction() == null) {
             errors.add("Button is required");
-            return errors;
+            return errors;         
+        }
+        if (getInitialPrice() == null) {
+        	errors.add("Initial price is required");
+            return errors;   
         }
 
         String errorFN = checkFundNameFormat(getFundName());
         Pattern SYMBOL_PATTERN = Pattern.compile("[A-Z]{1,5}");
         if (errorFN != "") errors.add(errorFN);
-        if (!SYMBOL_PATTERN.matcher(getSymbol()).matches())
+        if (!SYMBOL_PATTERN.matcher(getSymbol()).matches()) {
             errors.add("Symbol should be less than 5 capital letters");
-        if (errors.size() > 0) {
             return errors;
+        }
+        
+        // The initial price should be within the range of $0.01 to $1,000,000.
+        String errorIP = checkDepositCheckFormat(getInitialPrice());
+        if (errorIP != "") {
+        	errors.add(errorIP);
+        	return errors;
         }
 
         if (!getAction().equals("Create Fund")) {
@@ -65,4 +76,12 @@ public class CreateFundFormBean extends MyFormBean {
     public void setAction(String action) {
         this.action = action;
     }
+
+	public String getInitialPrice() {
+		return initialPrice;
+	}
+
+	public void setInitialPrice(String initialPrice) {
+		this.initialPrice = initialPrice;
+	}
 }

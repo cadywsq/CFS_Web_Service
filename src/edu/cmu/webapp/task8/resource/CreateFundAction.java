@@ -9,8 +9,10 @@ import javax.servlet.http.HttpSession;
 import edu.cmu.webapp.task8.JSON.MessageJSON;
 import edu.cmu.webapp.task8.databean.EmployeeBean;
 import edu.cmu.webapp.task8.databean.FundBean;
+import edu.cmu.webapp.task8.databean.FundPriceHistoryBean;
 import edu.cmu.webapp.task8.formbean.CreateFundFormBean;
 import edu.cmu.webapp.task8.model.FundDAO;
+import edu.cmu.webapp.task8.model.FundPriceHistoryDAO;
 
 public class CreateFundAction extends Action {
 	private CreateFundFormBean createFundForm;
@@ -61,6 +63,17 @@ public class CreateFundAction extends Action {
 		newFund.setName(createFundForm.getFundName());
 		newFund.setSymbol(createFundForm.getSymbol());
 		fundDAO.createFund(newFund);
+		FundBean addedFund = new FundBean();
+		
+		FundPriceHistoryDAO fundPriceHistoryDAO = new FundPriceHistoryDAO();
+		FundPriceHistoryBean newFundPriceHistory = new FundPriceHistoryBean();
+		
+		//Add the new fund initial price to Fund price history table.
+		newFundPriceHistory.setFundId(addedFund.getFundId());
+		Long initialPrice = Long.parseLong(createFundForm.getInitialPrice());
+		newFundPriceHistory.setPrice(initialPrice);
+		newFundPriceHistory.setPriceDate(null);
+		fundPriceHistoryDAO.createFundPriceHistory(newFundPriceHistory);
 		
 		//Return success message.
 		createFundMessages.add(new MessageJSON("Fund " + createFundForm.getFundName() + " is created."));

@@ -7,6 +7,7 @@ import edu.cmu.webapp.task8.formbean.CreateFundFormBean;
 public class CreateFundBeanParam {
 	private @FormParam("fundName") String fundName;
 	private @FormParam("symbol") String symbol;
+	private @FormParam("initialPrice") String initialPrice;
     private CreateFundFormBean createFundForm;
     
     public CreateFundBeanParam() {
@@ -33,6 +34,14 @@ public class CreateFundBeanParam {
 
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
+	}
+
+	public String getInitialPrice() {
+		return initialPrice;
+	}
+
+	public void setInitialPrice(String initialPrice) {
+		this.initialPrice = initialPrice;
 	}
 
 }
