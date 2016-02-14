@@ -113,7 +113,7 @@ public class SellFundAction extends Action {
         transactionDAO.createTransaction(transaction);
 
         // Return success message.
-        buyFundMessages.add(new MessageJSON("The purchase was successfully completed."));
+        buyFundMessages.add(new MessageJSON("The purchase was successfully completed"));
         return buyFundMessages;
     }
 }
