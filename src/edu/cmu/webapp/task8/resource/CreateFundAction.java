@@ -1,6 +1,8 @@
 package edu.cmu.webapp.task8.resource;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,38 +47,37 @@ public class CreateFundAction extends Action {
 			createFundMessages.add(new MessageJSON("I'm sorry you are not authorized to perform that action"));
         	return createFundMessages;
         }
-
-
 		// Form validation check and check if fund already exists.
 		errors.addAll(createFundForm.getValidationErrors());
 		
-		FundDAO fundDAO = new FundDAO();
-		FundBean fund = fundDAO.getFundByName(createFundForm.getFundName());
-		
-		if (errors.size() > 0 || fund != null) {
-			createFundMessages.add(new MessageJSON("“I’m sorry, there was a problem creating the fund."));
+		if (errors.size() > 0) {
+			for(String error: errors) {
+				createFundMessages.add(new MessageJSON(error));
+			}
 			return createFundMessages;
 		}
+		FundDAO fundDAO = new FundDAO();
+		FundBean fund = fundDAO.getFundByName(createFundForm.getFundName());
 		
 		//Create the fund.
 		FundBean newFund = new FundBean();
 		newFund.setName(createFundForm.getFundName());
 		newFund.setSymbol(createFundForm.getSymbol());
 		fundDAO.createFund(newFund);
-		FundBean addedFund = new FundBean();
 		
 		FundPriceHistoryDAO fundPriceHistoryDAO = new FundPriceHistoryDAO();
 		FundPriceHistoryBean newFundPriceHistory = new FundPriceHistoryBean();
 		
 		//Add the new fund initial price to Fund price history table.
-		newFundPriceHistory.setFundId(addedFund.getFundId());
-		Long initialPrice = Long.parseLong(createFundForm.getInitialPrice());
-		newFundPriceHistory.setPrice(initialPrice);
-		newFundPriceHistory.setPriceDate(null);
+		newFundPriceHistory.setFundId(fund.getFundId());
+		Long initialValue = Long.parseLong(createFundForm.getInitialValue());
+		newFundPriceHistory.setPrice(initialValue);
+		SimpleDateFormat sdfCurrentDate = new SimpleDateFormat("YYYY-MM-dd");
+		newFundPriceHistory.setPriceDate(sdfCurrentDate.format(new Date()));
 		fundPriceHistoryDAO.createFundPriceHistory(newFundPriceHistory);
 		
 		//Return success message.
-		createFundMessages.add(new MessageJSON("Fund " + createFundForm.getFundName() + " is created."));
+		createFundMessages.add(new MessageJSON("The fund has been successfully created"));
 		return createFundMessages;
 
 	}

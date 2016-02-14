@@ -8,8 +8,7 @@ import java.util.regex.Pattern;
 public class CreateFundFormBean extends MyFormBean {
     private String fundName;
     private String symbol;
-    private String action;
-    private String initialPrice;
+    private String initialValue;
 
     @Override
     public List<String> getValidationErrors() {
@@ -23,11 +22,7 @@ public class CreateFundFormBean extends MyFormBean {
             errors.add("Symbol is required");
             return errors;
         }
-        if (getAction() == null) {
-            errors.add("Button is required");
-            return errors;         
-        }
-        if (getInitialPrice() == null) {
+        if (getInitialValue() == null) {
         	errors.add("Initial price is required");
             return errors;   
         }
@@ -41,14 +36,10 @@ public class CreateFundFormBean extends MyFormBean {
         }
         
         // The initial price should be within the range of $0.01 to $1,000,000.
-        String errorIP = checkDepositCheckFormat(getInitialPrice());
+        String errorIP = checkDepositCheckFormat(getInitialValue());
         if (errorIP != "") {
         	errors.add(errorIP);
         	return errors;
-        }
-
-        if (!getAction().equals("Create Fund")) {
-            errors.add("Invalid button");
         }
         return errors;
     }
@@ -69,19 +60,11 @@ public class CreateFundFormBean extends MyFormBean {
         this.symbol = symbol;
     }
 
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
-    }
-
-	public String getInitialPrice() {
-		return initialPrice;
+	public String getInitialValue() {
+		return initialValue;
 	}
 
-	public void setInitialPrice(String initialPrice) {
-		this.initialPrice = initialPrice;
+	public void setInitialValue(String initialValue) {
+		this.initialValue = initialValue;
 	}
 }

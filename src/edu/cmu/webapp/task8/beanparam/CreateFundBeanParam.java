@@ -5,9 +5,9 @@ import javax.ws.rs.FormParam;
 import edu.cmu.webapp.task8.formbean.CreateFundFormBean;
 
 public class CreateFundBeanParam {
-	private @FormParam("fundName") String fundName;
+	private @FormParam("name") String fundName;
 	private @FormParam("symbol") String symbol;
-	private @FormParam("initialPrice") String initialPrice;
+	private @FormParam("initialvalue") String initialValue;
     private CreateFundFormBean createFundForm;
     
     public CreateFundBeanParam() {
@@ -17,6 +17,7 @@ public class CreateFundBeanParam {
     public CreateFundFormBean getCreateFundForm() {
     	createFundForm.setFundName(this.fundName);
     	createFundForm.setSymbol(this.symbol);
+    	createFundForm.setInitialValue(this.initialValue);
     	return createFundForm;
     }
     
@@ -37,11 +38,11 @@ public class CreateFundBeanParam {
 	}
 
 	public String getInitialPrice() {
-		return initialPrice;
+		return initialValue;
 	}
 
 	public void setInitialPrice(String initialPrice) {
-		this.initialPrice = initialPrice;
+		this.initialValue = initialPrice;
 	}
 
 }
