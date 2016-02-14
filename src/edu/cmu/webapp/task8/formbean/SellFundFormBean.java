@@ -5,6 +5,7 @@ import java.util.List;
 
 public class SellFundFormBean extends MyFormBean {
     private String fundName;
+    private String symbol;
     private String action;
     private String shares;
 
@@ -62,5 +63,13 @@ public class SellFundFormBean extends MyFormBean {
 
     public void setShares(String shares) {
         this.shares = shares;
+    }
+    
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 }
