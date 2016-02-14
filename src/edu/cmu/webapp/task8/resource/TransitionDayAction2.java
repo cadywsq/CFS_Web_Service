@@ -73,7 +73,6 @@ public class TransitionDayAction2 {
         // Return success message.
         transitionDayMessages.add(new MessageJSON("The fund prices have been recalculated"));
         return transitionDayMessages;
-        
 	}
 	
 	private static long createRandomPrice(long currentPrice) {
