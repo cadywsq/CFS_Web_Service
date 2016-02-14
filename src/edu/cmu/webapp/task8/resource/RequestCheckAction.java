@@ -60,11 +60,11 @@ public class RequestCheckAction extends Action {
         try {
             withdrawAmount = Double.parseDouble(this.form.getDollarAmount());
         } catch (Exception e) {
-            messagejson.add(new MessageJSON("Amount should be a digital number."));
+            messagejson.add(new MessageJSON("Amount should be a valid number."));
             return messagejson;
         }
         if (withdrawAmount > availableBalance) {
-            messagejson.add(new MessageJSON("I am sorry, the amount requested is greater than the balance of your account."));
+            messagejson.add(new MessageJSON("I'm sorry, the amount requested is greater than the balance of your account."));
             return messagejson;
         }
         availableBalance = (availableBalance - withdrawAmount) * 100;
@@ -79,7 +79,7 @@ public class RequestCheckAction extends Action {
         transaction.setShares(-1);
         try {
             transactionDAO.createTransaction(transaction);
-            messagejson.add(new MessageJSON("The withdrawal was successfully completed."));
+            messagejson.add(new MessageJSON("The withdrawal was successfully completed"));
             return messagejson;
         } catch (HibernateException e) {
             messagejson.add(new MessageJSON("I am sorry, there was a problem depositing the money."));

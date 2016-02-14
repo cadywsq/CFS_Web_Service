@@ -17,9 +17,8 @@ import edu.cmu.webapp.task8.model.CustomerDAO;
 import edu.cmu.webapp.task8.model.TransactionDAO;
 
 /**
- * 
- * @author Hunter
- *
+ * @author Hunter,
+ * @modified by Rahul Somani
  */
 public class DepositCheckAction extends Action {
     private DepositCheckFormBean form;
@@ -56,6 +55,10 @@ public class DepositCheckAction extends Action {
         CustomerDAO customerDAO = new CustomerDAO();
         TransactionDAO transactionDAO = new TransactionDAO();
         CustomerBean customer = customerDAO.getCustomerByUserName(form.getUsername());
+		if (customer == null) {
+			messagejson.add(new MessageJSON("Customer does not exist"));
+			return messagejson;
+		}        
         TransactionBean transaction = new TransactionBean();
         transaction.setCustomerId(customer.getCustomerId());
         transaction.setAmount((long) (Double.parseDouble(form.getDollarAmount()) * 100));

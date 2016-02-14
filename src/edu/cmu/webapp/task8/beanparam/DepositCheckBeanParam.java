@@ -9,14 +9,9 @@ import edu.cmu.webapp.task8.formbean.DepositCheckFormBean;
  *
  */
 public class DepositCheckBeanParam {
-    @FormParam("username")
-    private String username = null;
-    
-    @FormParam("dollarAmount")
-    private String dollarAmount = null;
-    
-    @FormParam("confirmAmount")
-    private String confirmAmount = null;
+   
+    private  @FormParam("username") String username = null;
+    private @FormParam("cash") String dollarAmount = null;
     
     private DepositCheckFormBean depositCheckFormBean = null;
     
@@ -38,14 +33,6 @@ public class DepositCheckBeanParam {
 
     public void setDollarAmount(String dollarAmount) {
         this.dollarAmount = dollarAmount;
-    }
-
-    public String getConfirmAmount() {
-        return confirmAmount;
-    }
-
-    public void setConfirmAmount(String confirmAmount) {
-        this.confirmAmount = confirmAmount;
     }
 
     public DepositCheckFormBean getDepositCheckFormBean() {

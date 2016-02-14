@@ -70,7 +70,6 @@ public class CreateFundAction extends Action {
 				return createFundMessages;
 			}
 		}
-
 		// Create the new fund.
 		FundBean newFund = new FundBean();
 		newFund.setName(createFundForm.getFundName());
@@ -86,7 +85,7 @@ public class CreateFundAction extends Action {
 		newFundPriceHistory.setFundId(newFund.getFundId());
 		Long initialValue = Long.parseLong(createFundForm.getInitialValue());
 		newFundPriceHistory.setPrice(initialValue);
-		SimpleDateFormat sdfCurrentDate = new SimpleDateFormat("YYYY-MM-dd");
+		SimpleDateFormat sdfCurrentDate = new SimpleDateFormat("YYYY-MM-dd HH:MM:SS");
 		newFundPriceHistory.setPriceDate(sdfCurrentDate.format(new Date()));
 		fundPriceHistoryDAO.createFundPriceHistory(newFundPriceHistory);
 

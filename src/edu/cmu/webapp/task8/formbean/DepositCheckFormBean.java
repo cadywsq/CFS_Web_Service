@@ -7,8 +7,6 @@ public class DepositCheckFormBean extends MyFormBean {
     private String username;
     private String dollarAmount;
     private String confirmAmount;
-    private String action;
-
     @Override
     public List<String> getValidationErrors() {
         List<String> errors = new ArrayList<>();
@@ -24,14 +22,6 @@ public class DepositCheckFormBean extends MyFormBean {
         if (getConfirmAmount() == null || getConfirmAmount().trim().length() == 0) {
             errors.add("Confirmed Amount is required");
             return errors;
-        }
-        if (getAction() == null) {
-            errors.add("Button is required");
-            return errors;
-        }
-
-        if (!getAction().equals("Deposit Check")) {
-            errors.add("Invalid button");
         }
 
         String errorUN = checkStringFormat(getUsername());
@@ -81,13 +71,5 @@ public class DepositCheckFormBean extends MyFormBean {
 
     public void setConfirmAmount(String confirmAmount) {
         this.confirmAmount = confirmAmount;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
     }
 }

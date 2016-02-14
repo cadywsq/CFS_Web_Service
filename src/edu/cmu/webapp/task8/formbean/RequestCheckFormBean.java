@@ -6,7 +6,6 @@ import java.util.List;
 public class RequestCheckFormBean extends MyFormBean {
     private String dollarAmount;
     private String confirmAmount;
-    private String action;
 
     @Override
     public List<String> getValidationErrors() {
@@ -19,16 +18,8 @@ public class RequestCheckFormBean extends MyFormBean {
             errors.add("Confirm Amount is required");
         }
 
-        if (getAction() == null) {
-            errors.add("Button is required");
-        }
-
         if (errors.size() > 0) {
             return errors;
-        }
-
-        if (!getAction().equals("Request Check")) {
-            errors.add("Invalid button");
         }
         if (errors.size() > 0) {
             return errors;
@@ -68,13 +59,5 @@ public class RequestCheckFormBean extends MyFormBean {
 
     public void setConfirmAmount(String confirmAmount) {
         this.confirmAmount = confirmAmount;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
     }
 }

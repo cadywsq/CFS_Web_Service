@@ -86,7 +86,8 @@ public class BuyFundAction extends Action {
 			}
 			
 			// *****Next version would be fund name. (Now it's fund id in fact)*******
-			String fundName = form.getFund();
+			//String fundName = form.getFund();
+			String fundName = "FUNDA";
 			//int fundName = Integer.parseInt(form.getFund());
 			double amountToBuy = Double.parseDouble(form.getDollarAmount());
 			

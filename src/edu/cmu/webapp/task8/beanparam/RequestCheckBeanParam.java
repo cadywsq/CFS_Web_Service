@@ -9,11 +9,9 @@ import edu.cmu.webapp.task8.formbean.RequestCheckFormBean;
  *
  */
 public class RequestCheckBeanParam {
-    @FormParam("dollarAmount")
-    private String dollarAmount = null;
     
-    @FormParam("confirmAmount")
-    private String confirmAmount = null;
+    private @FormParam("cashValue") String dollarAmount = null;
+    
     
     private RequestCheckFormBean requestCheckFormBean = null;
     
@@ -29,17 +27,9 @@ public class RequestCheckBeanParam {
         this.dollarAmount = dollarAmount;
     }
 
-    public String getConfirmAmount() {
-        return confirmAmount;
-    }
-
-    public void setConfirmAmount(String confirmAmount) {
-        this.confirmAmount = confirmAmount;
-    }
-
     public RequestCheckFormBean getRequestCheckFormBean() {
         this.requestCheckFormBean.setDollarAmount(this.dollarAmount);
-        this.requestCheckFormBean.setConfirmAmount(this.confirmAmount);
+        this.requestCheckFormBean.setConfirmAmount(this.dollarAmount);
         return requestCheckFormBean;
     }
     
