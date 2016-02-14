@@ -30,53 +30,67 @@ public class CreateFundAction extends Action {
 
 	@Override
 	public List<MessageJSON> perform(HttpServletRequest request) {
-		
+
 		HttpSession session = request.getSession();
 		List<String> errors = new ArrayList<String>();
 		List<MessageJSON> createFundMessages = new ArrayList<>();
 
 		// Checking if the user has logged in.
 		EmployeeBean employee = (EmployeeBean) session.getAttribute("user");
-		if (employee == null ) {
+		if (employee == null) {
 			createFundMessages.add(new MessageJSON("You must log in prior to making this request"));
 			return createFundMessages;
 		}
-		
+
 		// Check if the logged in user is an employee.
 		if (!(session.getAttribute("user") instanceof EmployeeBean)) {
 			createFundMessages.add(new MessageJSON("I'm sorry you are not authorized to perform that action"));
-        	return createFundMessages;
-        }
-		// Form validation check and check if fund already exists.
+			return createFundMessages;
+		}
+
 		errors.addAll(createFundForm.getValidationErrors());
-		
+
 		if (errors.size() > 0) {
-			for(String error: errors) {
+			for (String error : errors) {
 				createFundMessages.add(new MessageJSON(error));
 			}
 			return createFundMessages;
 		}
+		// Form validation check and check if fund already exists.
 		FundDAO fundDAO = new FundDAO();
 		FundBean fund = fundDAO.getFundByName(createFundForm.getFundName());
-		
-		//Create the fund.
+
+		if (fund != null) {
+			if (fund.getName().equals(createFundForm.getFundName())) {
+				createFundMessages.add(new MessageJSON("Fund with " + createFundForm.getFundName() +"name already exists"));
+				return createFundMessages;
+			}
+			if (fund.getSymbol().equals(createFundForm.getSymbol())) {
+				createFundMessages.add(new MessageJSON("Fund with "+ createFundForm.getSymbol() + " symbol already exists"));
+				return createFundMessages;
+			}
+		}
+
+		// Create the new fund.
 		FundBean newFund = new FundBean();
 		newFund.setName(createFundForm.getFundName());
 		newFund.setSymbol(createFundForm.getSymbol());
 		fundDAO.createFund(newFund);
-		
+
 		FundPriceHistoryDAO fundPriceHistoryDAO = new FundPriceHistoryDAO();
 		FundPriceHistoryBean newFundPriceHistory = new FundPriceHistoryBean();
 		
-		//Add the new fund initial price to Fund price history table.
-		newFundPriceHistory.setFundId(fund.getFundId());
+		newFund = fundDAO.getFundByName(createFundForm.getFundName());
+		
+		// Add the new fund initial price to Fund price history table.
+		newFundPriceHistory.setFundId(newFund.getFundId());
 		Long initialValue = Long.parseLong(createFundForm.getInitialValue());
 		newFundPriceHistory.setPrice(initialValue);
 		SimpleDateFormat sdfCurrentDate = new SimpleDateFormat("YYYY-MM-dd");
 		newFundPriceHistory.setPriceDate(sdfCurrentDate.format(new Date()));
 		fundPriceHistoryDAO.createFundPriceHistory(newFundPriceHistory);
-		
-		//Return success message.
+
+		// Return success message.
 		createFundMessages.add(new MessageJSON("The fund has been successfully created"));
 		return createFundMessages;
 
