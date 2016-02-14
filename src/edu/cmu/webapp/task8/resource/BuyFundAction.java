@@ -100,7 +100,7 @@ public class BuyFundAction extends Action {
 		transaction.setExecuteDate(null);
 		transaction.setShares(-1);
 		transactionDAO.createTransaction(transaction);
-
+		
 		// Return success message.
 		buyFundMessages.add(new MessageJSON("The purchase was successfully completed"));
 		return buyFundMessages;

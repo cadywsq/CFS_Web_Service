@@ -58,7 +58,7 @@ public class DepositCheckAction extends Action {
 		if (customer == null) {
 			messagejson.add(new MessageJSON("Customer does not exist"));
 			return messagejson;
-		}        
+		}
         TransactionBean transaction = new TransactionBean();
         transaction.setCustomerId(customer.getCustomerId());
         transaction.setAmount((long) (Double.parseDouble(form.getDollarAmount()) * 100));
