@@ -12,6 +12,9 @@ local.properties
 # Eclipse Core
 .project
 
+# Eclipse Build file
+build/
+
 # External tool builders
 .externalToolBuilders/
 
@@ -47,3 +50,4 @@ local.properties
 
 # Code Recommenders
 .recommenders/
+/build/
