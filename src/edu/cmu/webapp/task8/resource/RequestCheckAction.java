@@ -39,7 +39,13 @@ public class RequestCheckAction extends Action {
         List<MessageJSON> messagejson = new ArrayList<MessageJSON>();
         List<String> message = new ArrayList<String>();
         HttpSession session= request.getSession(true);
-        CustomerBean customer = (CustomerBean) session.getAttribute("user");
+        CustomerBean customer = null;
+        try {
+            customer = (CustomerBean) session.getAttribute("user");
+        } catch (Exception e) {
+            messagejson.add(new MessageJSON("I'm sorry you are not authorized to perform that action"));
+            return messagejson;
+        }
         if(customer == null) {
             messagejson.add(new MessageJSON("You must log in prior to making this request"));
             return messagejson;
@@ -62,11 +68,11 @@ public class RequestCheckAction extends Action {
         try {
             withdrawAmount = Double.parseDouble(this.form.getDollarAmount());
         } catch (Exception e) {
-            messagejson.add(new MessageJSON("Amount should be a valid number."));
+            messagejson.add(new MessageJSON("Amount should be a valid number"));
             return messagejson;
         }
         if (withdrawAmount > availableBalance) {
-            messagejson.add(new MessageJSON("I'm sorry, the amount requested is greater than the balance of your account."));
+            messagejson.add(new MessageJSON("I'm sorry, the amount requested is greater than the balance of your account"));
             return messagejson;
         }
         SimpleDateFormat sdfDate = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");
@@ -85,7 +91,7 @@ public class RequestCheckAction extends Action {
             messagejson.add(new MessageJSON("The withdrawal was successfully completed"));
             return messagejson;
         } catch (HibernateException e) {
-            messagejson.add(new MessageJSON("I am sorry, there was a problem depositing the money."));
+            messagejson.add(new MessageJSON("I am sorry, there was a problem depositing the money"));
             return messagejson;
         }
     }
