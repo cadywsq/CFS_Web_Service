@@ -18,7 +18,7 @@ public class RestFulJerseyClient {
 
 	public static void main(String[] args) {
 		
-		SimpleDateFormat sdfCurrentDate = new SimpleDateFormat("YYYY-MM-dd HH:MM:SS");
+		SimpleDateFormat sdfCurrentDate = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");
 		System.out.println(sdfCurrentDate.format(new Date()));
 		
 		ClientConfig clientConfig = new ClientConfig();

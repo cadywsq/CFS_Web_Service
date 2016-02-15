@@ -82,8 +82,8 @@ public class ViewCustomerAction extends Action {
                 for (int i = 0; i < positionList.size(); i++) {
                     CustomerAccountItemBean item = new CustomerAccountItemBean();
                     PositionBean position = positionList.get(i);
-                    item.setFundName(fundDAO.getFundById(position.getFundId()).getName());
-                    item.setSymbol(fundDAO.getFundById(position.getFundId()).getSymbol());
+                    item.setName(fundDAO.getFundById(position.getFundId()).getName());
+                    //item.setSymbol(fundDAO.getFundById(position.getFundId()).getSymbol());
                     NumberFormat shareFormat = new DecimalFormat("#.###");
                     item.setShare(shareFormat.format(position.getShares() / 1000.0));
 
@@ -92,7 +92,7 @@ public class ViewCustomerAction extends Action {
                     double price = fundPriceList.get(fundPriceList.size() - 1).getPrice() / 100.0;
                     double amount = price * position.getShares();
                     NumberFormat amountFormat = new DecimalFormat("#.##");
-                    item.setAmount(amountFormat.format(amount));
+                    item.setPrice(amountFormat.format(amount));
 
                     fundList.add(item);
                 }

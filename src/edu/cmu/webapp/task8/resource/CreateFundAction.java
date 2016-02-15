@@ -77,16 +77,23 @@ public class CreateFundAction extends Action {
 		fundDAO.createFund(newFund);
 
 		FundPriceHistoryDAO fundPriceHistoryDAO = new FundPriceHistoryDAO();
-		FundPriceHistoryBean newFundPriceHistory = new FundPriceHistoryBean();
+		String maxDate = fundPriceHistoryDAO.getMaxDate();
+		SimpleDateFormat sdfCurrentDate = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");
+		//in case if fund price history table is receiving the value for first time
+		if (maxDate == null) {
+			maxDate = sdfCurrentDate.format(new Date());
+		}
 		
+		
+		FundPriceHistoryBean newFundPriceHistory = new FundPriceHistoryBean();
 		newFund = fundDAO.getFundByName(createFundForm.getFundName());
 		
 		// Add the new fund initial price to Fund price history table.
 		newFundPriceHistory.setFundId(newFund.getFundId());
 		Long initialValue = Long.parseLong(createFundForm.getInitialValue());
-		newFundPriceHistory.setPrice(initialValue);
-		SimpleDateFormat sdfCurrentDate = new SimpleDateFormat("YYYY-MM-dd HH:MM:SS");
-		newFundPriceHistory.setPriceDate(sdfCurrentDate.format(new Date()));
+		newFundPriceHistory.setPrice(initialValue*100);
+		
+		newFundPriceHistory.setPriceDate(maxDate);
 		fundPriceHistoryDAO.createFundPriceHistory(newFundPriceHistory);
 
 		// Return success message.

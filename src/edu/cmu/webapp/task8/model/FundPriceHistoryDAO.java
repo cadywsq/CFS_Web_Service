@@ -1,6 +1,7 @@
 package edu.cmu.webapp.task8.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -103,6 +104,21 @@ public class FundPriceHistoryDAO {
         } catch (HibernateException e) {
             session.getTransaction().rollback();
 //            System.out.println("cannot get fundPriceHistory by fund id from database.");
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+    public String getMaxDate() {
+    	Session session = this.sessionFactory.openSession();
+        try {
+            String hql = String.format("select MAX(priceDate) from FundPriceHistoryBean");
+            session.beginTransaction();
+            String maxDate  = (String)session.createQuery(hql).uniqueResult();
+            return maxDate;
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
             e.printStackTrace();
         } finally {
             session.close();

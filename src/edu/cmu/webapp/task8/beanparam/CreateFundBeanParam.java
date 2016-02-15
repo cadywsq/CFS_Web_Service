@@ -7,7 +7,7 @@ import edu.cmu.webapp.task8.formbean.CreateFundFormBean;
 public class CreateFundBeanParam {
 	private @FormParam("name") String fundName;
 	private @FormParam("symbol") String symbol;
-	private @FormParam("initialvalue") String initialValue;
+	private @FormParam("initial_value") String initialValue;
     private CreateFundFormBean createFundForm;
     
     public CreateFundBeanParam() {

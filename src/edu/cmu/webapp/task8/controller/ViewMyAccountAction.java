@@ -74,9 +74,8 @@ public class ViewMyAccountAction extends Action {
 	        	
 	            CustomerAccountItemBean item = new CustomerAccountItemBean();
 	            PositionBean position = positionList.get(i);
-	            item.setFundName(fundDAO.getFundById(position.getFundId()).getName());
+	            item.setName(fundDAO.getFundById(position.getFundId()).getName());
 //	            System.out.println("inside VieMyAccountAction: " + item.getFundName());
-	            item.setSymbol(fundDAO.getFundById(position.getFundId()).getSymbol());
 //	            System.out.println("inside VieMyAccountAction: " + fundDAO.getFundById(position.getFundId()).getSymbol());
 //	            System.out.println("inside VieMyAccountAction: " + item.getSymbol());
 	            NumberFormat shareFormat = new DecimalFormat("#,##0.000");
@@ -91,7 +90,7 @@ public class ViewMyAccountAction extends Action {
 	            }
 	            double amount = price * (position.getShares() / 1000.0);
 	            
-	            item.setAmount(ValueFormatter.round(amount, 2));
+	            item.setPrice(ValueFormatter.round(amount, 2));
 //	            System.out.println("inside VieMyAccountAction: " + item.getAmount());
 	            fundList.add(item);
 	        }

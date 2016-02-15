@@ -1,6 +1,8 @@
 package edu.cmu.webapp.task8.resource;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,11 +61,12 @@ public class DepositCheckAction extends Action {
 			messagejson.add(new MessageJSON("Customer does not exist"));
 			return messagejson;
 		}
+		SimpleDateFormat sdfDate = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");
         TransactionBean transaction = new TransactionBean();
         transaction.setCustomerId(customer.getCustomerId());
         transaction.setAmount((long) (Double.parseDouble(form.getDollarAmount()) * 100));
         transaction.setTransactionType(TransactionBean.DEPOSIT_CHECK);
-        transaction.setExecuteDate(null);
+        transaction.setExecuteDate(sdfDate.format(new Date()));
         transaction.setFundId(-1);
         transaction.setShares(-1);
         try {

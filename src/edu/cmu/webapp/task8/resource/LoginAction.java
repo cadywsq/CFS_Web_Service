@@ -21,44 +21,57 @@ public class LoginAction extends Action {
 	public LoginAction(LoginFormBean obj) {
 		loginBean = obj;
 	}
+
 	public String getName() {
 		return "login";
 	}
+
 	public LoginJSON perform(HttpServletRequest request) {
-		String message ="";
+		String message = "";
 		HttpSession session = request.getSession();
 		List<String> errors = new ArrayList<String>();
 		List<Menu> menuLinks = new ArrayList<Menu>();
 		LoginJSON loginJSON = null;
-		
-		//normal validation check
+
+		// normal validation check
 		errors = loginBean.getValidationErrors();
-		if(errors.size()>0){
-			//list all errors and return.
+		if (errors.size() > 0) {
+			// list all errors and return.
 		}
 		// Checking if customer has logged in
 		CustomerDAO customerDAO = new CustomerDAO();
 		CustomerBean customer = customerDAO.getCustomerByUserName(loginBean.getUsername());
-		if (customer != null && customer.getPassword().equals(loginBean.getPassword())) {
-			session.setAttribute("user", customer);
-			message = "Welcome "+ customer.getFirstName() + " " + customer.getLastName();
-			menuLinks = new Menulist().getCustomerLinkFunctions();
-			loginJSON = new LoginJSON(message, menuLinks);
-			return loginJSON;
+		if (customer != null) {
+			if (customer.getPassword().equals(loginBean.getPassword())) {
+				session.setAttribute("user", customer);
+				message = "Welcome " + customer.getFirstName() + " " + customer.getLastName();
+				menuLinks = new Menulist().getCustomerLinkFunctions();
+				loginJSON = new LoginJSON(message, menuLinks);
+				return loginJSON;
+			} else {
+				message = "The username/password combination that you entered is not correct";
+				loginJSON = new LoginJSON(message, menuLinks);
+			}
 		}
 		// Checking if employee has logged in
 		EmployeeDAO employeeDAO = new EmployeeDAO();
 		EmployeeBean employee = employeeDAO.getEmployeeByUserName(loginBean.getUsername());
-		if (employee != null && employee.getPassword().equals(loginBean.getPassword())) {
-			session.setAttribute("user", employee);
-			message = "Welcome "+ employee.getFirstName() + " " + employee.getLastName();
-			menuLinks = new Menulist().getEmployeeLinkFunctions();
-			loginJSON = new LoginJSON(message, menuLinks);
-			return loginJSON;
+		if (employee != null) {
+			if (employee.getPassword().equals(loginBean.getPassword())) {
+				session.setAttribute("user", employee);
+				message = "Welcome " + employee.getFirstName() + " " + employee.getLastName();
+				menuLinks = new Menulist().getEmployeeLinkFunctions();
+				loginJSON = new LoginJSON(message, menuLinks);
+				return loginJSON;
+			} else {
+				message = "The username/password combination that you entered is not correct";
+				loginJSON = new LoginJSON(message, menuLinks);
+			}
 		}
-		//Checking if user name and password doesn't match for both employee and customer
-		if(employee == null && customer == null) {
-			message = "The username//password combination that you entered is not correct";
+		// Checking if user name and password doesn't match for both employee
+		// and customer
+		if (employee == null && customer == null) {
+			message = "The username/password combination that you entered is not correct";
 			loginJSON = new LoginJSON(message, menuLinks);
 			return loginJSON;
 		}

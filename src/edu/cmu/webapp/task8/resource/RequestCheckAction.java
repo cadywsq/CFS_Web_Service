@@ -1,6 +1,8 @@
 package edu.cmu.webapp.task8.resource;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,6 +69,7 @@ public class RequestCheckAction extends Action {
             messagejson.add(new MessageJSON("I'm sorry, the amount requested is greater than the balance of your account."));
             return messagejson;
         }
+        SimpleDateFormat sdfDate = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");
         availableBalance = (availableBalance - withdrawAmount) * 100;
         customer.setCash((long) availableBalance);
         customerDAO.updateCustomer(customer);
@@ -75,7 +78,7 @@ public class RequestCheckAction extends Action {
         transaction.setAmount((long) (Double.parseDouble(this.form.getConfirmAmount()) * 100));
         transaction.setTransactionType(TransactionBean.REQUEST_CHECK);
         transaction.setFundId(-1);
-        transaction.setExecuteDate(null);
+        transaction.setExecuteDate(sdfDate.format(new Date()));
         transaction.setShares(-1);
         try {
             transactionDAO.createTransaction(transaction);
