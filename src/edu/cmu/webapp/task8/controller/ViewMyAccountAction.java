@@ -79,7 +79,7 @@ public class ViewMyAccountAction extends Action {
 //	            System.out.println("inside VieMyAccountAction: " + fundDAO.getFundById(position.getFundId()).getSymbol());
 //	            System.out.println("inside VieMyAccountAction: " + item.getSymbol());
 	            NumberFormat shareFormat = new DecimalFormat("#,##0.000");
-	            item.setShare(shareFormat.format(position.getShares() / 1000.0));
+	            item.setShares(shareFormat.format(position.getShares() / 1000.0));
 	            
 	
 	            List<FundPriceHistoryBean> fundPriceList = fundPriceHistoryDAO.findFundPriceHistoryByFundId(position

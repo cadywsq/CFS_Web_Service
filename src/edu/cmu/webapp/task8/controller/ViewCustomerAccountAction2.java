@@ -112,7 +112,7 @@ public class ViewCustomerAccountAction2 extends Action {
 						item.setName(fundDAO.getFundById(position.getFundId()).getName());
 						//item.setSymbol(fundDAO.getFundById(position.getFundId()).getSymbol());
 //						NumberFormat shareFormat = new DecimalFormat("#.###");
-						item.setShare(ValueFormatter.round(position.getShares() / 1000.0, 3));
+						item.setShares(ValueFormatter.round(position.getShares() / 1000.0, 3));
 						List<FundPriceHistoryBean> fundPriceList = fundPriceHistoryDAO.findFundPriceHistoryByFundId(position.getFundId());
 						double price = fundPriceList.get(fundPriceList.size() - 1).getPrice() / 100.0;
 						double amount = price * position.getShares() / 1000.0;

@@ -25,9 +25,6 @@ import edu.cmu.webapp.task8.model.PositionDAO;
  * From this view there will be links to most other operations.
  */
 public class ViewPortfolioAction extends Action {
-    public ViewPortfolioAction() {
-        
-    }
 
     public String getName() {
         return "viewMyAccount";
@@ -64,7 +61,7 @@ public class ViewPortfolioAction extends Action {
 	            PositionBean position = positionList.get(i);
 	            item.setName(fundDAO.getFundById(position.getFundId()).getName());
 	            NumberFormat shareFormat = new DecimalFormat("#,##0.000");
-	            item.setShare(shareFormat.format(position.getShares() / 1000.0));
+	            item.setShares(shareFormat.format(position.getShares() / 1000.0));
 	            
 	            List<FundPriceHistoryBean> fundPriceList = fundPriceHistoryDAO.findFundPriceHistoryByFundId(position.getFundId());
 	            double price = 0.0;
@@ -77,7 +74,7 @@ public class ViewPortfolioAction extends Action {
 	            fundList.add(item);
 	        }
 
-        return new ViewPortfolioJSON("Funds Owned by you and Available Cash is:",strAvailableBalance,fundList);
+        return new ViewPortfolioJSON("Funds owned by you and available cash",strAvailableBalance,fundList);
     
     }
 }
