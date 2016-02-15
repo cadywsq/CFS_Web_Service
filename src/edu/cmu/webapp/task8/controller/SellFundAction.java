@@ -60,8 +60,7 @@ public class SellFundAction extends Action {
 				customer = customerDAO.getCustomerByUserName(customer.getUsername());
 				List<FundBean> fundList = fundDAO.getCustomerFundList(customer.getCustomerId());
 				HashMap<String, String> hmFundBean = new HashMap<String,String>();
-				
-				String selectedfundName = form.getFundName();
+				String selectedfundName ="";
 				if (fundList != null && fundList.size() > 0) 
 					for(FundBean fb: fundList) {
 						if(fb.getName().equals(selectedfundName))
@@ -79,7 +78,7 @@ public class SellFundAction extends Action {
 				// Set decimal format
 				DecimalFormat df3 = new DecimalFormat("#,###");
 
-				String fundName = form.getFundName();
+				String fundName ="";
 				
 				FundBean fundBean = fundDAO.getFundByName(fundName);
 				int fundId = fundBean.getFundId();
@@ -97,9 +96,7 @@ public class SellFundAction extends Action {
 				DecimalFormat dfForShares = new DecimalFormat("#,##0.000");
 				request.setAttribute("sharesown", dfForShares.format(posBean.getShares() / 1000.0));
 
-				if (form.getAction()==null) {
-					return "sellFund.jsp";
-				}
+
 				//Check for button click errors
 				errors.addAll(form.getValidationErrors());
 				if (errors.size() > 0) {

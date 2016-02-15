@@ -33,10 +33,7 @@ public class TransitionDayAction2 {
         List<String> errors = new ArrayList<String>();
         List<MessageJSON> transitionDayMessages = new ArrayList<>();
 
-        CustomerDAO 		customerDAO = new CustomerDAO();
         FundDAO 			fundDAO = new FundDAO();
-        PositionDAO 		positionDAO = new PositionDAO();
-        TransactionDAO 		transactionDAO = new TransactionDAO();
     	FundPriceHistoryDAO	fundPriceHistoryDAO = new FundPriceHistoryDAO();
         
     	// Checking if the user has logged in.
@@ -46,8 +43,8 @@ public class TransitionDayAction2 {
         }
     	
     	// The user needs to be an employee and be actively logged into the system.
-        if (session.getAttribute("user") instanceof CustomerBean) {
-        	transitionDayMessages.add(new MessageJSON("I'm sorry you are not authorized to preform that action"));
+        if (!(session.getAttribute("user") instanceof EmployeeBean)) {
+        	transitionDayMessages.add(new MessageJSON("I'm sorry you are not authorized to perform that action"));
             return transitionDayMessages;
         }
         
@@ -65,6 +62,7 @@ public class TransitionDayAction2 {
         for (int i = 0; i < fundList.size(); i++) {
         	FundBean fb = fundList.get(i);
         	FundPriceHistoryBean currentPrice = fundPriceHistoryDAO.getLatestFundPriceByFundId(fb.getFundId());
+        	
         	// generate -10% ~ 10% fluctuation and set the new price
         	currentPrice.setPrice(createRandomPrice(currentPrice.getPrice()));
         	fundPriceHistoryDAO.updateFundPriceHistory(currentPrice);
@@ -81,9 +79,7 @@ public class TransitionDayAction2 {
 		Random ran = new Random();
 		int x = ran.nextInt(hi - lo) + lo;
 		double dx = x / 100.0;
-//		System.out.print([i] + " -> ");
 		currentPrice = (long) (currentPrice * (1 + dx));
-//		System.out.println(prices[i]);
 		return currentPrice;
 	}	
 }

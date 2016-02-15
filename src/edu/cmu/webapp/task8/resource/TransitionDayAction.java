@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -67,8 +68,8 @@ public class TransitionDayAction {
         
         // set last trading day
         Calendar calendarObj = Calendar.getInstance();
-        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-        String executeDate = df.format(calendarObj.getTime());
+        SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");
+        String executeDate = df.format(new Date());
         
         // new price map
         HashMap<Integer, Long> newPriceMap = new HashMap<>();
