@@ -21,6 +21,7 @@ import edu.cmu.webapp.task8.model.TransactionDAO;
 /**
  * @author Hunter,
  * @modified by Rahul Somani
+ * @modified by Hunter
  */
 public class DepositCheckAction extends Action {
     private DepositCheckFormBean form;
@@ -38,7 +39,13 @@ public class DepositCheckAction extends Action {
         List<MessageJSON> messagejson = new ArrayList<MessageJSON>();
         List<String> message = new ArrayList<String>();
         HttpSession session= request.getSession(true);
-        EmployeeBean employee = (EmployeeBean) session.getAttribute("user");
+        EmployeeBean employee = null;
+        try {
+            employee = (EmployeeBean) session.getAttribute("user");
+        } catch (Exception e) {
+            messagejson.add(new MessageJSON("I'm sorry you are not authorized to perform that action"));
+            return messagejson;
+        }
         if(employee == null) {
             messagejson.add(new MessageJSON("You must log in prior to making this request"));
             return messagejson;
@@ -71,10 +78,10 @@ public class DepositCheckAction extends Action {
         transaction.setShares(-1);
         try {
             transactionDAO.createTransaction(transaction);
-            messagejson.add(new MessageJSON("The account has been successfully updated."));
+            messagejson.add(new MessageJSON("The account has been successfully updated"));
             return messagejson;
         } catch (HibernateException e) {
-            messagejson.add(new MessageJSON("I am sorry, there was a problem depositing the money."));
+            messagejson.add(new MessageJSON("I am sorry, there was a problem depositing the money"));
             return messagejson;
         }
     }
