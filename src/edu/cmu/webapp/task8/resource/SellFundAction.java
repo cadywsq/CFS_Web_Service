@@ -87,7 +87,7 @@ public class SellFundAction extends Action {
 		try {
 			shareToSell = Double.parseDouble(sellFundForm.getShares());
 		} catch (NumberFormatException nfe) {
-			// errors.add("Please input a valid share number");
+			errors.add("Please input a valid share number");
 		}
 		if (shareToSell + 0.0 > (sharePosition / 1000.0)) {
 			sellFundMessages.add(
