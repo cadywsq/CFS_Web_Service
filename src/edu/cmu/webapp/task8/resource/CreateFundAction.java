@@ -15,7 +15,12 @@ import edu.cmu.webapp.task8.databean.FundPriceHistoryBean;
 import edu.cmu.webapp.task8.formbean.CreateFundFormBean;
 import edu.cmu.webapp.task8.model.FundDAO;
 import edu.cmu.webapp.task8.model.FundPriceHistoryDAO;
-
+/**
+ * 
+ * @author Cady
+ * @modified Hunter
+ *
+ */
 public class CreateFundAction extends Action {
 	private CreateFundFormBean createFundForm;
 
@@ -101,8 +106,12 @@ public class CreateFundAction extends Action {
 		
 		// Add the new fund initial price to Fund price history table.
 		newFundPriceHistory.setFundId(newFund.getFundId());
-		Long initialValue = Long.parseLong(createFundForm.getInitialValue());
-		newFundPriceHistory.setPrice(initialValue*100);
+		/**
+		 * Modified by Hunter
+		 * catch the exception that if parameter is under double format
+		 */
+		Long initialValue = (long) (Double.parseDouble(createFundForm.getInitialValue()) * 100);
+		newFundPriceHistory.setPrice(initialValue);
 		
 		newFundPriceHistory.setPriceDate(maxDate);
 		fundPriceHistoryDAO.createFundPriceHistory(newFundPriceHistory);
