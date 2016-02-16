@@ -105,7 +105,7 @@ public class BuyFundAction extends Action {
 		FundBean fundBean = fundDAO.getFundBySymbol(fundSymbol);
 		
 		if(fundBean==null) {
-			buyFundMessages.add(new MessageJSON("Fund does not exist"));
+			buyFundMessages.add(new MessageJSON("No such Fund Exist"));
 		}
 		FundPriceHistoryDAO fundPriceHistoryDAO = new FundPriceHistoryDAO();
 
@@ -154,7 +154,7 @@ public class BuyFundAction extends Action {
 			// Return success message.
 			buyFundMessages.add(new MessageJSON("The purchase was successfully completed"));
 		} else {
-			buyFundMessages.add(new MessageJSON("No shares are allocated."));
+			buyFundMessages.add(new MessageJSON("No shares are allocated. "));
 		}
 		return buyFundMessages;
 	}

@@ -86,17 +86,21 @@ public class SellFundAction extends Action {
 		String Symbol = sellFundForm.getSymbol();
 
 		FundBean fundBean = fundDAO.getFundBySymbol(Symbol);
+		if(fundBean==null) {
+			sellFundMessages.add(new MessageJSON("No such fund symbol exist"));
+			return sellFundMessages;
+		}
 		int fundId = fundBean.getFundId();
 		PositionBean posBean = positionDAO.getPosition(customer.getCustomerId(), fundId);
 		long sharePosition = posBean.getShares();
-		
 		
 		// Check enough money
 		double shareToSell = 0;
 		try {
 			shareToSell = Double.parseDouble(sellFundForm.getShares());
 		} catch (NumberFormatException nfe) {
-			errors.add("Please input a valid share number");
+			sellFundMessages.add(new MessageJSON("Please input a valid number of shares to sell"));
+			return sellFundMessages;
 		}
 		if (shareToSell + 0.0 > (sharePosition / 1000.0)) {
 			sellFundMessages.add(
