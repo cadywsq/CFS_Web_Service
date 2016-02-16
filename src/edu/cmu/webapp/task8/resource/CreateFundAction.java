@@ -36,7 +36,18 @@ public class CreateFundAction extends Action {
 		List<MessageJSON> createFundMessages = new ArrayList<>();
 
 		// Checking if the user has logged in.
-		EmployeeBean employee = (EmployeeBean) session.getAttribute("user");
+//		EmployeeBean employee = (EmployeeBean) session.getAttribute("user");
+		/**
+         * Check if the logged in user is an employee.
+         * Modified by Hunter
+         */
+        EmployeeBean employee = null;
+        try {
+            employee = (EmployeeBean) session.getAttribute("user");
+        } catch (Exception e) {
+            createFundMessages.add(new MessageJSON("I'm sorry you are not authorized to perform that action"));
+            return createFundMessages;
+        }
 		if (employee == null) {
 			createFundMessages.add(new MessageJSON("You must log in prior to making this request"));
 			return createFundMessages;

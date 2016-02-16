@@ -44,7 +44,18 @@ public class SellFundAction extends Action {
 		TransactionDAO transactionDAO = new TransactionDAO();
 
 		// Checking if the user has logged in.
-		CustomerBean customer = (CustomerBean) session.getAttribute("user");
+//		CustomerBean customer = (CustomerBean) session.getAttribute("user");
+		/**
+         * Check if the logged in user is a customer.
+         * Modified by Hunter
+         */
+		CustomerBean customer = null;
+		try {
+            customer = (CustomerBean) session.getAttribute("user");
+        } catch (Exception e) {
+            sellFundMessages.add(new MessageJSON("I'm sorry you are not authorized to perform that action"));
+            return sellFundMessages;
+        }
 		if (customer == null) {
 			sellFundMessages.add(new MessageJSON("You must log in prior to making this request"));
 			return sellFundMessages;

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import edu.cmu.webapp.task8.JSON.MessageJSON;
 import edu.cmu.webapp.task8.JSON.ViewPortfolioJSON;
 import edu.cmu.webapp.task8.resource.Action;
 import edu.cmu.webapp.task8.databean.CustomerAccountItemBean;
@@ -32,7 +33,18 @@ public class ViewPortfolioAction extends Action {
 
     public ViewPortfolioJSON perform(HttpServletRequest request) {
         HttpSession customerSession = request.getSession();
-        CustomerBean customer = (CustomerBean) customerSession.getAttribute("user");
+        
+//        CustomerBean customer = (CustomerBean) customerSession.getAttribute("user");
+        /**
+         * Check if the logged in user is a customer.
+         * Modified by Hunter
+         */
+        CustomerBean customer = null;
+        try {
+            customer = (CustomerBean) customerSession.getAttribute("user");
+        } catch (Exception e) {
+            return new ViewPortfolioJSON("I'm sorry you are not authorized to perform that action");
+        }
         
         List<String> errors = new ArrayList<>();
         request.setAttribute("errors", errors);
