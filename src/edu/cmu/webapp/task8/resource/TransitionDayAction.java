@@ -49,6 +49,7 @@ public class TransitionDayAction {
             return transitionDayMessages;
         }
         
+        // there is no need to get the session user attribute any more
 //        EmployeeBean employee = (EmployeeBean) session.getAttribute("user");
         
         List<FundBean> fundList = fundDAO.getFundList();
@@ -59,27 +60,29 @@ public class TransitionDayAction {
         	return transitionDayMessages;
         }
         try {
-        SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");
-        String executeDate = df.format(new Date());
-        // update prices for each every fund
-        for (int i = 0; i < fundList.size(); i++) {
-        	try {
-        	FundBean fb = fundList.get(i);
-        	FundPriceHistoryBean newPriceBean = fundPriceHistoryDAO.getLatestFundPriceByFundId(fb.getFundId());
-        	// generate -10% ~ 10% fluctuation and set the new price
-        	newPriceBean.setPrice(createRandomPrice(newPriceBean.getPrice()));
-        	newPriceBean.setPriceDate(executeDate);
-        	// insert new prices in database
-        	fundPriceHistoryDAO.createFundPriceHistory(newPriceBean);
-        	} catch (Exception e) {
-        		
-        	}
-        }
-        
-        // Return success message.
-        transitionDayMessages.add(new MessageJSON("The fund prices have been recalculated"));
+	        SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");
+	        String executeDate = df.format(new Date());
+	        // update prices for each every fund
+	        for (int i = 0; i < fundList.size(); i++) {
+	        	try {
+		        	FundBean fb = fundList.get(i);
+		        	FundPriceHistoryBean newPriceBean = fundPriceHistoryDAO.getLatestFundPriceByFundId(fb.getFundId());
+		        	
+		        	// generate -10% ~ 10% fluctuation and set the new price
+		        	newPriceBean.setPrice(createRandomPrice(newPriceBean.getPrice()));
+		        	newPriceBean.setPriceDate(executeDate);
+		        	// insert new prices in database
+		        	fundPriceHistoryDAO.createFundPriceHistory(newPriceBean);
+	        	} catch (Exception e) {
+	        		
+	        	}
+	        }
+	        
+	        // Return success message.
+	        transitionDayMessages.add(new MessageJSON("The fund prices have been recalculated"));
         } catch (Exception e) {
-        	transitionDayMessages.add(new MessageJSON("Fund price not recalculated"));
+//        	transitionDayMessages.add(new MessageJSON("The fund prices are not recalculated"));
+        	transitionDayMessages.add(new MessageJSON("You must log in prior to making this request"));
         }
         return transitionDayMessages;
 	}
