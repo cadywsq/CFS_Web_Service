@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import edu.cmu.webapp.task8.JSON.MessageJSON;
 import edu.cmu.webapp.task8.databean.CustomerBean;
 import edu.cmu.webapp.task8.databean.FundBean;
@@ -44,7 +45,18 @@ public class BuyFundAction extends Action {
 		TransactionDAO transactionDAO = new TransactionDAO();
 
 		// Checking if the user has logged in.
-		CustomerBean customer = (CustomerBean) session.getAttribute("user");
+//		CustomerBean customer = (CustomerBean) session.getAttribute("user");
+		/**
+         * Check if the logged in user is a customer.
+         * Modified by Hunter
+         */
+        CustomerBean customer = null;
+        try {
+            customer = (CustomerBean) session.getAttribute("user");
+        } catch (Exception e) {
+            buyFundMessages.add(new MessageJSON("I'm sorry you are not authorized to perform that action"));
+            return buyFundMessages;
+        }
 		if (customer == null) {
 			buyFundMessages.add(new MessageJSON("You must log in prior to making this request"));
 			return buyFundMessages;
