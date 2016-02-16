@@ -65,7 +65,7 @@ public abstract class MyFormBean extends FormBean {
      }
 
     public String checkShareFormat(String number) {
-    	Pattern SHARE_FORMAT = Pattern.compile("[0-9]{1,7}");
+    	Pattern SHARE_FORMAT = Pattern.compile("[1-9][0-9]{0,6}");
     	Boolean rightFormat = SHARE_FORMAT.matcher(number).matches();
     	if (!rightFormat) {
     		return "Cannot sell partial share.";
