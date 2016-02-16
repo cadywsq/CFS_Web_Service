@@ -103,6 +103,10 @@ public class BuyFundAction extends Action {
 		// transaction to DB
 
 		FundBean fundBean = fundDAO.getFundBySymbol(fundSymbol);
+		
+		if(fundBean==null) {
+			buyFundMessages.add(new MessageJSON("Fund does not exist"));
+		}
 		FundPriceHistoryDAO fundPriceHistoryDAO = new FundPriceHistoryDAO();
 
 		String latestDate = fundPriceHistoryDAO.getMaxDate();

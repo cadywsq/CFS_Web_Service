@@ -75,8 +75,6 @@ public class SellFundAction extends Action {
 /*		customer = (CustomerBean) request.getSession(false).getAttribute("user");
 		customer = customerDAO.getCustomerByUserName(customer.getUsername());*/
 
-		// Check for button click errors
-		errors.addAll(sellFundForm.getValidationErrors());
 		// Form validation check
 		errors.addAll(sellFundForm.getValidationErrors());
 		if (errors.size() > 0) {
