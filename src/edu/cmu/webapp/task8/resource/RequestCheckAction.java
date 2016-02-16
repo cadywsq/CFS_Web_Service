@@ -82,7 +82,7 @@ public class RequestCheckAction extends Action {
         //entering data into transaction history table
         TransactionBean transaction = new TransactionBean();
         transaction.setCustomerId(customer.getCustomerId());
-        transaction.setAmount((long) (Double.parseDouble(this.form.getConfirmAmount()) * 100));
+        transaction.setAmount((long) (Double.parseDouble(this.form.getDollarAmount()) * 100));
         transaction.setTransactionType(TransactionBean.REQUEST_CHECK);
         transaction.setFundId(-1);
         transaction.setExecuteDate(sdfDate.format(new Date()));
