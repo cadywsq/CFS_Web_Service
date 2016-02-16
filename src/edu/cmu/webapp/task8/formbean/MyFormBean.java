@@ -28,7 +28,7 @@ public abstract class MyFormBean extends FormBean {
     public String checkNumberFormat(String number) {
         try {
             double num = Double.parseDouble(number);
-            Pattern NUM_FORMAT = Pattern.compile("^[1-9][0-9]{1,6}\\.?[0-9]{0,2}$");
+            Pattern NUM_FORMAT = Pattern.compile("^[1-9][0-9]{0,6}\\.?[0-9]{0,2}$");
             Boolean rightFormat = NUM_FORMAT.matcher(number).matches();
             if (!rightFormat) {
                 return "Amount should be within the range of $10.00 to $1,000,000.00 with two digits at most.";
