@@ -65,15 +65,20 @@ public abstract class MyFormBean extends FormBean {
      }
 
     public String checkShareFormat(String number) {
-        try {
-            double shareAmount = Double.parseDouble(number);
-            if (shareAmount < 0.001) {
-                return "Share should be larger than 0.001";
-            }
-            else return "";
-        } catch (NumberFormatException e) {
-            return "Please input valid number";
-        }
+    	Pattern SHARE_FORMAT = Pattern.compile("[0-9]{1,7}");
+    	Boolean rightFormat = SHARE_FORMAT.matcher(number).matches();
+    	if (!rightFormat) {
+    		return "Cannot sell partial share.";
+    	} else return "";
+//        try {
+//            int shareAmount = Integer.parseInt(number);
+//            if (shareAmount < 0.001) {
+//                return "Share should be larger than 0.001";
+//            }
+//            else return "";
+//        } catch (NumberFormatException e) {
+//            return "Please input valid number";
+//        }
     }
 
     public String checkLetterFormat(String formInput) {
