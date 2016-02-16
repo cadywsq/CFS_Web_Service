@@ -80,7 +80,12 @@ public class CreateCustomerAccountAction extends Action{
         	messagejson.add(new MessageJSON("The account has been successfully created"));
         	return messagejson;
         }
-        messagejson.add(new MessageJSON("I/'m sorry there was problem creating the account"));
+        /*
+         * Note here: "I/'m sorry there was problem creating the account" is wrong because / will also be printed.
+         * 			  "I'm sorry there ..." is the right way to print. 
+         */
+//        messagejson.add(new MessageJSON("I/'m sorry there was problem creating the account"));
+        messagejson.add(new MessageJSON("I'm sorry there was problem creating the account"));
         return messagejson;
 	}
 	private boolean isUserNameAvailable(CustomerDAO customer) {
