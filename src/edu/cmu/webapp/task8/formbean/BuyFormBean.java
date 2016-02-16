@@ -2,6 +2,7 @@ package edu.cmu.webapp.task8.formbean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class BuyFormBean extends MyFormBean {
     private String dollarAmount;
@@ -18,14 +19,19 @@ public class BuyFormBean extends MyFormBean {
             errors.add("Please enter a dollar amount");
             return errors;
         }
-        //The dollar amount user entered should be within range of (10, 1,000,000).
-        String error = checkNumberFormat(dollarAmount);
-        if (!error.equals("")) {
-            errors.add(error);
-        }
-        if (errors.size() > 0) {
+        //The dollar amount user entered should be within range of (1, 1,000,000).
+        String amountError = checkNumberFormat(dollarAmount);
+        if (!amountError.equals("")) {
+            errors.add(amountError);
             return errors;
         }
+        
+        String symbolError = checkFundNameFormat(Symbol);
+        if (!symbolError.equals("")) {
+        	errors.add(symbolError);
+        	return errors;
+        }
+      
         return errors;
     }
     public String getDollarAmount() {
@@ -40,6 +46,6 @@ public class BuyFormBean extends MyFormBean {
         return Symbol;
     }
     public void setSymbol(String symbol) {
-        Symbol = symbol;
+        this.Symbol = symbol;
     }
 }
