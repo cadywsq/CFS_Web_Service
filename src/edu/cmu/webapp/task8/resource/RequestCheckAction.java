@@ -62,6 +62,7 @@ public class RequestCheckAction extends Action {
             return messagejson;
         }
         CustomerDAO customerDAO = new CustomerDAO();
+        customer = customerDAO.getCustomerByUserName(customer.getUsername());
         TransactionDAO transactionDAO = new TransactionDAO();
         double availableBalance = customer.getCash() / 100.0;
         double withdrawAmount = 0d;
