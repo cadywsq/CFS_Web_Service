@@ -68,6 +68,9 @@ public class DepositCheckAction extends Action {
 			messagejson.add(new MessageJSON("Customer does not exist"));
 			return messagejson;
 		}
+		//updating customer balance
+		customer.setCash(customer.getCash() + (long) (Double.parseDouble(form.getDollarAmount()) * 100));
+		customerDAO.updateCustomer(customer);
 		SimpleDateFormat sdfDate = new SimpleDateFormat("YYYY-MM-dd hh:mm:ss");
         TransactionBean transaction = new TransactionBean();
         transaction.setCustomerId(customer.getCustomerId());

@@ -79,6 +79,7 @@ public class RequestCheckAction extends Action {
         availableBalance = (availableBalance - withdrawAmount) * 100;
         customer.setCash((long) availableBalance);
         customerDAO.updateCustomer(customer);
+        //entering data into transaction history table
         TransactionBean transaction = new TransactionBean();
         transaction.setCustomerId(customer.getCustomerId());
         transaction.setAmount((long) (Double.parseDouble(this.form.getConfirmAmount()) * 100));

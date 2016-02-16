@@ -16,7 +16,7 @@ public class CreateFundBeanParam {
     
     public CreateFundFormBean getCreateFundForm() {
     	createFundForm.setFundName(this.fundName);
-    	createFundForm.setSymbol(this.symbol);
+    	createFundForm.setSymbol(this.symbol.toUpperCase());
     	createFundForm.setInitialValue(this.initialValue);
     	return createFundForm;
     }
