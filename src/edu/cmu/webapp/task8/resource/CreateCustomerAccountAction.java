@@ -2,6 +2,7 @@ package edu.cmu.webapp.task8.resource;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -26,7 +27,18 @@ public class CreateCustomerAccountAction extends Action{
 		List<MessageJSON> messagejson = new ArrayList<MessageJSON>();
 		List<String> message = new ArrayList<String>();
 		HttpSession session= request.getSession(true);
-    	EmployeeBean employee = (EmployeeBean)session.getAttribute("user");
+//    	EmployeeBean employee = (EmployeeBean)session.getAttribute("user");
+		/**
+         * Check if the logged in user is an employee.
+         * Modified by Hunter
+         */
+		EmployeeBean employee = null;
+        try {
+            employee = (EmployeeBean) session.getAttribute("user");
+        } catch (Exception e) {
+            messagejson.add(new MessageJSON("I'm sorry you are not authorized to perform that action"));
+            return messagejson;
+        }
 		//
     	if(employee==null) {
     		//return error  message invalid session id;
