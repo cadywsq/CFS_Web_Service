@@ -24,8 +24,8 @@ public class CustomerAccountItemBean {
 		return price;
 	}
 
-	public void setPrice(String amount) {
-		this.price = amount;
+	public void setPrice(String price) {
+		this.price = price;
 	}
 	public String getShares() {
 		return shares;

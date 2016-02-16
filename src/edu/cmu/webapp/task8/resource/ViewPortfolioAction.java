@@ -80,9 +80,8 @@ public class ViewPortfolioAction extends Action {
 	            if(fundPriceList != null && fundPriceList.size() > 0) {
 	            	price = fundPriceList.get(fundPriceList.size() - 1).getPrice() / 100.0;
 	            }
-	            double amount = price * (position.getShares() / 1000.0);
 	            
-	            item.setPrice(ValueFormatter.round(amount, 2));
+	            item.setPrice(ValueFormatter.round(price, 2));
 	            fundList.add(item);
 	        }
 
