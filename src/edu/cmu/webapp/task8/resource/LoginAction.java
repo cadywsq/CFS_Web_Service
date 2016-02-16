@@ -42,7 +42,7 @@ public class LoginAction extends Action {
 		CustomerDAO customerDAO = new CustomerDAO();
 		CustomerBean customer = customerDAO.getCustomerByUserName(loginBean.getUsername());
 		if (customer != null) {
-			if (customer.getPassword().equals(loginBean.getPassword())) {
+			if (customer.checkPassword(loginBean.getPassword())) {
 				session.setAttribute("user", customer);
 				message = "Welcome " + customer.getFirstName() + " " + customer.getLastName();
 				menuLinks = new Menulist().getCustomerLinkFunctions();

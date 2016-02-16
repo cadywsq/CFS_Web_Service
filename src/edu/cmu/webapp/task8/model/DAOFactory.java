@@ -67,7 +67,7 @@ public class DAOFactory extends AbstractDAOFactory {
 //                System.out.println("Database Does not Exist. Starting to Create One.");
                 this.createDabase(dbName);
                 String createCustomer = String.format("CREATE TABLE `%s`.`customer` ("
-                       + "`customer_id` INT NOT NULL AUTO_INCREMENT,"
+                        + "`customer_id` INT NOT NULL AUTO_INCREMENT,"
                         + "`username` VARCHAR(225) NULL,"
                         + "`password` VARCHAR(45) NULL,"
                         + "`firstname` VARCHAR(225) NULL,"
@@ -78,6 +78,7 @@ public class DAOFactory extends AbstractDAOFactory {
                         + "`state` VARCHAR(45) NULL,"
                         + "`zip` INT NULL,"
                         + "`cash` BIGINT(20) NULL,"
+                        + "`salt` INT NULL,"
                         + "PRIMARY KEY (`customer_id`))", dbName);
                 String createEmployee = String.format("CREATE TABLE `%s`.`employee` ("
                         + "`username` VARCHAR(225) NOT NULL,"
@@ -140,7 +141,7 @@ public class DAOFactory extends AbstractDAOFactory {
                 
                 String[] insertSql = {
                 "INSERT INTO employee VALUES('jadmin','Jane','Admin','admin')",
-                "INSERT INTO employee VALUES('moosewen','Moose','wen','123')",
+                /*"INSERT INTO employee VALUES('moosewen','Moose','wen','123')",
                 "INSERT INTO employee VALUES('je0ke','Jeff','Eppinger','123')",
                 "INSERT INTO employee VALUES('jmussitsche','Jason','Mussitsch','123')",
                 "INSERT INTO employee VALUES('sujatae','Sujata','Telang','123')",
@@ -201,7 +202,7 @@ public class DAOFactory extends AbstractDAOFactory {
                 "INSERT INTO transaction VALUES('10','2','-1','2016-01-19 14:11:30','-1','4','6000000')",
                 "INSERT INTO transaction VALUES('10','3','-1','2016-01-19 14:11:30','-1','4','6000000')", 
                 "INSERT INTO transaction VALUES('11','4','-1','2016-01-19 14:11:30','-1','3','6000000')", 
-                "INSERT INTO transaction VALUES('12','4','1','2016-01-20 14:11:30','10000','1','100000')"
+                "INSERT INTO transaction VALUES('12','4','1','2016-01-20 14:11:30','10000','1','100000')"*/
                 };
                 for (int i = 0; i < insertSql.length; i++) {
 //                    System.out.println("this is: " + i + ", " + insertSql[i]);
