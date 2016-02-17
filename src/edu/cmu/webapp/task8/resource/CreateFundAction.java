@@ -23,7 +23,7 @@ import edu.cmu.webapp.task8.model.FundPriceHistoryDAO;
  */
 public class CreateFundAction extends Action {
 	private CreateFundFormBean createFundForm;
-	private static final String ERROR_MSG = "I’m sorry, there was a problem creating the fund";
+	private static final String ERROR_MSG = "I'm sorry, there was a problem creating the fund";
 
 	public CreateFundAction(CreateFundFormBean obj) {
 		createFundForm = obj;
