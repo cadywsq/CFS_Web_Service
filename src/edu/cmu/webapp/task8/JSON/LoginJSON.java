@@ -1,5 +1,6 @@
 package edu.cmu.webapp.task8.JSON;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
@@ -8,6 +9,10 @@ public class LoginJSON {
 	private List<Menu> menu;
 	public LoginJSON() {
 		
+	}
+	public LoginJSON(String message) {
+		this.message = message;
+		this.menu = new ArrayList<>();
 	}
 	public LoginJSON(String message, List<Menu> menu) {
 		this.message = message;

@@ -36,6 +36,8 @@ public class LoginAction extends Action {
 		// normal validation check
 		errors = loginBean.getValidationErrors();
 		if (errors.size() > 0) {
+			message = "The username/password combination that you entered is not correct";
+			return new LoginJSON(message);
 			// list all errors and return.
 		}
 		// Checking if customer has logged in

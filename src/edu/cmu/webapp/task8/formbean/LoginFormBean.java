@@ -19,9 +19,15 @@ public class LoginFormBean extends MyFormBean {
             return errors;
         }
         String errorUN = checkStringFormat(getUsername());
-        if (errorUN != "") errors.add("User Name " + errorUN);
+        if (errorUN != "") {
+        	errors.add("User Name " + errorUN);
+        	return errors;
+        }
         String errorPwd = checkStringFormat(getPassword());
-        if (errorPwd != "") errors.add(errorPwd);
+        if (errorPwd != "") {
+        	errors.add(errorPwd);
+        	return errors;
+        }
 
         return errors;
     }
