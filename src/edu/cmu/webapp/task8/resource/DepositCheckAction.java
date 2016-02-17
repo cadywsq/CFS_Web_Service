@@ -56,16 +56,18 @@ public class DepositCheckAction extends Action {
         }
         message.addAll(form.getValidationErrors());
         if(message.size() > 0) {
-            for(String msg : message) {
+            /*for(String msg : message) {
                 messagejson.add(new MessageJSON(msg));
-            }
+            }*/
+        	messagejson.add(new MessageJSON("I'm sorry, there was problem depositing the money"));
             return messagejson;
         }
         CustomerDAO customerDAO = new CustomerDAO();
         TransactionDAO transactionDAO = new TransactionDAO();
         CustomerBean customer = customerDAO.getCustomerByUserName(form.getUsername());
 		if (customer == null) {
-			messagejson.add(new MessageJSON("Customer does not exist"));
+			messagejson.add(new MessageJSON("I'm sorry, there was problem depositing the money"));
+			//messagejson.add(new MessageJSON("Customer does not exist"));
 			return messagejson;
 		}
 		//updating customer balance

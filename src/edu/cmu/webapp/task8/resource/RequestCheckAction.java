@@ -57,9 +57,10 @@ public class RequestCheckAction extends Action {
         }
         message.addAll(form.getValidationErrors());
         if(message.size() > 0) {
-            for(String msg : message) {
+            /*for(String msg : message) {
                 messagejson.add(new MessageJSON(msg));
-            }
+            }*/
+        	messagejson.add(new MessageJSON("I'm sorry, there was problem requesting the money"));
             return messagejson;
         }
         CustomerDAO customerDAO = new CustomerDAO();

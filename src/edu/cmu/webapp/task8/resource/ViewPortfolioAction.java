@@ -71,7 +71,7 @@ public class ViewPortfolioAction extends Action {
         for (int i = 0; i < positionList.size(); i++) {
 	            CustomerAccountItemBean item = new CustomerAccountItemBean();
 	            PositionBean position = positionList.get(i);
-	            item.setName(fundDAO.getFundById(position.getFundId()).getName());
+	            item.setName(fundDAO.getFundById(position.getFundId()).getSymbol());
 	            NumberFormat shareFormat = new DecimalFormat("#,##0.000");
 	            item.setShares(shareFormat.format(position.getShares() / 1000.0));
 	            
