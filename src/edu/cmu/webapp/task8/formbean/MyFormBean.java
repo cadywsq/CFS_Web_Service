@@ -65,6 +65,11 @@ public abstract class MyFormBean extends FormBean {
      }
 
     public String checkShareFormat(String number) {
+    	try {
+    		Double.parseDouble(number);
+    	} catch (Exception e) {
+    		return "Please inut valid number";
+    	}
     	Pattern SHARE_FORMAT = Pattern.compile("[1-9][0-9]{0,6}");
     	Boolean rightFormat = SHARE_FORMAT.matcher(number).matches();
     	if (!rightFormat) {
@@ -98,7 +103,7 @@ public abstract class MyFormBean extends FormBean {
     }
 
     public String checkStringFormat(String username) {
-        Pattern USERNAME_FORMAT = Pattern.compile("[^<>;\":]*");
+    	Pattern USERNAME_FORMAT = Pattern.compile("[^<>;\":]*");
         Boolean rightFormat = USERNAME_FORMAT.matcher(username).matches();
         if (!rightFormat) {
             return "Username may not contain angle brackets, colon or quotes";

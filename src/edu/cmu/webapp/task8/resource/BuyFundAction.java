@@ -45,18 +45,17 @@ public class BuyFundAction extends Action {
 		TransactionDAO transactionDAO = new TransactionDAO();
 
 		// Checking if the user has logged in.
-//		CustomerBean customer = (CustomerBean) session.getAttribute("user");
+		// CustomerBean customer = (CustomerBean) session.getAttribute("user");
 		/**
-         * Check if the logged in user is a customer.
-         * Modified by Hunter
-         */
-        CustomerBean customer = null;
-        try {
-            customer = (CustomerBean) session.getAttribute("user");
-        } catch (Exception e) {
-            buyFundMessages.add(new MessageJSON("I'm sorry you are not authorized to perform that action"));
-            return buyFundMessages;
-        }
+		 * Check if the logged in user is a customer. Modified by Hunter
+		 */
+		CustomerBean customer = null;
+		try {
+			customer = (CustomerBean) session.getAttribute("user");
+		} catch (Exception e) {
+			buyFundMessages.add(new MessageJSON("I'm sorry you are not authorized to perform that action"));
+			return buyFundMessages;
+		}
 		if (customer == null) {
 			buyFundMessages.add(new MessageJSON("You must log in prior to making this request"));
 			return buyFundMessages;
@@ -73,6 +72,15 @@ public class BuyFundAction extends Action {
 		// request.setAttribute("customer", customer);
 
 		// ****Input parameter is fundSymbol, need to revise BuyFormBean****
+		// Form validation check
+		errors.addAll(buyFundForm.getValidationErrors());
+		if (errors.size() > 0) {
+			for (String error : errors) {
+				buyFundMessages.add(new MessageJSON(error));
+			}
+			return buyFundMessages;
+		}
+
 		String fundSymbol = buyFundForm.getSymbol();
 
 		double amountToBuy = Double.parseDouble(buyFundForm.getDollarAmount());
@@ -91,21 +99,14 @@ public class BuyFundAction extends Action {
 			return buyFundMessages;
 		}
 
-		// Form validation check
-		errors.addAll(buyFundForm.getValidationErrors());
-		if (errors.size() > 0) {
-			for (String error : errors) {
-				buyFundMessages.add(new MessageJSON(error));
-			}
-			return buyFundMessages;
-		}
 		// Otherwise, update available cash balance and queue up a pending
 		// transaction to DB
 
 		FundBean fundBean = fundDAO.getFundBySymbol(fundSymbol);
-		
-		if(fundBean==null) {
+
+		if (fundBean == null) {
 			buyFundMessages.add(new MessageJSON("No such Fund Exist"));
+			return buyFundMessages;
 		}
 		FundPriceHistoryDAO fundPriceHistoryDAO = new FundPriceHistoryDAO();
 
@@ -117,10 +118,10 @@ public class BuyFundAction extends Action {
 
 		// updating customer balance
 		amountToBuy = amountToBuy * 100;
-		//multiplying with shares 1000 multiples
+		// multiplying with shares 1000 multiples
 		long allocatedShares = (long) (amountToBuy / latestFundPrice);
 		if (allocatedShares > 0) {
-			availableBalance = availableBalance*100  - allocatedShares * latestFundPrice;
+			availableBalance = availableBalance * 100 - allocatedShares * latestFundPrice;
 			customer.setCash((long) (availableBalance));
 			customerDAO.updateCustomer(customer);
 
@@ -133,7 +134,7 @@ public class BuyFundAction extends Action {
 			// how to set execute date without explicitly passing parameter?
 			// ****Need revise******
 			transaction.setExecuteDate(sdfDate.format(new Date()));
-			transaction.setShares(allocatedShares*1000);
+			transaction.setShares(allocatedShares * 1000);
 			transactionDAO.createTransaction(transaction);
 
 			// Updating position
@@ -143,12 +144,12 @@ public class BuyFundAction extends Action {
 				position = new PositionBean();
 				position.setCustomerId(customer.getCustomerId());
 				position.setFundId(fundBean.getFundId());
-				position.setShares(allocatedShares*1000);
+				position.setShares(allocatedShares * 1000);
 				positionDAO.createPosition(position);
 
 			} else {
 				// adding shares to in position table
-				position.setShares(position.getShares() + allocatedShares*1000);
+				position.setShares(position.getShares() + allocatedShares * 1000);
 				positionDAO.updatePosition(position);
 			}
 			// Return success message.

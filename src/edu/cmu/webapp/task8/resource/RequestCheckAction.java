@@ -13,6 +13,7 @@ import org.hibernate.HibernateException;
 import edu.cmu.webapp.task8.JSON.MessageJSON;
 import edu.cmu.webapp.task8.databean.CustomerBean;
 import edu.cmu.webapp.task8.databean.TransactionBean;
+import edu.cmu.webapp.task8.databean.ValueFormatter;
 import edu.cmu.webapp.task8.formbean.RequestCheckFormBean;
 import edu.cmu.webapp.task8.model.CustomerDAO;
 import edu.cmu.webapp.task8.model.TransactionDAO;
@@ -83,7 +84,7 @@ public class RequestCheckAction extends Action {
         //entering data into transaction history table
         TransactionBean transaction = new TransactionBean();
         transaction.setCustomerId(customer.getCustomerId());
-        transaction.setAmount((long) (Double.parseDouble(this.form.getDollarAmount()) * 100));
+        transaction.setAmount((long)(Double.parseDouble(this.form.getDollarAmount()) * 100));
         transaction.setTransactionType(TransactionBean.REQUEST_CHECK);
         transaction.setFundId(-1);
         transaction.setExecuteDate(sdfDate.format(new Date()));
