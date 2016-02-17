@@ -93,7 +93,7 @@ public class SellFundAction extends Action {
 		int fundId = fundBean.getFundId();
 		PositionBean posBean = positionDAO.getPosition(customer.getCustomerId(), fundId);
 		if(posBean ==null) {
-			sellFundMessages.add(new MessageJSON("You do not own any shares for this fund"));
+			sellFundMessages.add(new MessageJSON("“I’m sorry, you don’t have enough shares of that fund in your portfolio"));
 			return sellFundMessages;
 		}
 		long sharePosition = posBean.getShares();
@@ -108,7 +108,7 @@ public class SellFundAction extends Action {
 		}
 		if (shareToSell + 0.0 > (sharePosition / 1000.0)) {
 			sellFundMessages.add(
-					new MessageJSON("I'm sorry, you don't have enough shares of " + "that fund in your portfolio"));
+					new MessageJSON("I'm sorry, you don't have enough shares of that fund in your portfolio"));
 			return sellFundMessages;
 		}
 

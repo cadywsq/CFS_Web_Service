@@ -23,6 +23,7 @@ import edu.cmu.webapp.task8.model.FundPriceHistoryDAO;
  */
 public class CreateFundAction extends Action {
 	private CreateFundFormBean createFundForm;
+	private static final String ERROR_MSG = "I’m sorry, there was a problem creating the fund";
 
 	public CreateFundAction(CreateFundFormBean obj) {
 		createFundForm = obj;
@@ -67,9 +68,7 @@ public class CreateFundAction extends Action {
 		errors.addAll(createFundForm.getValidationErrors());
 
 		if (errors.size() > 0) {
-			for (String error : errors) {
-				createFundMessages.add(new MessageJSON(error));
-			}
+			createFundMessages.add(new MessageJSON(ERROR_MSG));
 			return createFundMessages;
 		}
 		// Form validation check and check if fund already exists.
@@ -78,11 +77,11 @@ public class CreateFundAction extends Action {
 
 		if (fund != null) {
 			if (fund.getName().equals(createFundForm.getFundName())) {
-				createFundMessages.add(new MessageJSON("Fund with " + createFundForm.getFundName() +"name already exists"));
+				createFundMessages.add(new MessageJSON(ERROR_MSG));
 				return createFundMessages;
 			}
 			if (fund.getSymbol().equals(createFundForm.getSymbol())) {
-				createFundMessages.add(new MessageJSON("Fund with "+ createFundForm.getSymbol() + " symbol already exists"));
+				createFundMessages.add(new MessageJSON(ERROR_MSG));
 				return createFundMessages;
 			}
 		}
