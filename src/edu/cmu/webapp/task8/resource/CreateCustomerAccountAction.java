@@ -51,15 +51,17 @@ public class CreateCustomerAccountAction extends Action{
         }
         message.addAll(form.getValidationErrors());
         if(message.size()>0) {
-        	for(String msg : message) {
+        	/*for(String msg : message) {
         		messagejson.add(new MessageJSON(msg));
         	}
+        	return messagejson;*/
+        	messagejson.add(new MessageJSON("I'm sorry, there was problem creating the account"));
         	return messagejson;
         }
         //return over here to avoid session connection in case error
         customer = new CustomerDAO();
         if(!isUserNameAvailable(customer)) {
-        	messagejson.add(new MessageJSON("I'm sorry there was problem creating the account"));
+        	messagejson.add(new MessageJSON("I'm sorry, there was problem creating the account"));
         	return messagejson;
         }
         // If everything is correct, create new customer account
@@ -80,7 +82,7 @@ public class CreateCustomerAccountAction extends Action{
         	messagejson.add(new MessageJSON("The account has been successfully created"));
         	return messagejson;
         }
-        messagejson.add(new MessageJSON("I'm sorry there was problem creating the account"));
+        messagejson.add(new MessageJSON("I'm sorry, there was problem creating the account"));
         return messagejson;
 	}
 	private boolean isUserNameAvailable(CustomerDAO customer) {
